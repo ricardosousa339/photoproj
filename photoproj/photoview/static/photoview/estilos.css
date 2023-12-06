@@ -1,0 +1,10 @@
+.grid-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+}
+.grid-galeria img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px; /* Adicione um pouco de estilo às imagens */
+}
