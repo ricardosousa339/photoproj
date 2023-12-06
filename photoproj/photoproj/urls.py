@@ -15,10 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path
 from django.urls import path, include  # Importe a função include aqui
-from django.conf import settings
-from django.views.static import serve
+from django.contrib.auth import views as auth_views
 
 # Importe as urls do seu app 'photoview' aqui
 import photoview.urls
@@ -26,5 +24,9 @@ import photoview.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(photoview.urls))
+    path('', include(photoview.urls)),
+     path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
 ]

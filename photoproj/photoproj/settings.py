@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'photoview',
     'storages',
-    'rest_framework'
-    'corsheaders'
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

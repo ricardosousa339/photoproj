@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from .forms import FotoForm
-from django.http import HttpResponse
-from storages.backends.gcloud import GoogleCloudStorage
 from .models import Foto
 from django.core.files.storage import default_storage
-from django.core.files.storage import default_storage
-from django.http import Http404
 from rest_framework import viewsets
 from .serializers import FotoSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth.models import User
+from .serializers import RegisterSerializer
+
 
 
 def upload_imagem(request):
@@ -53,3 +54,11 @@ def galeria(request):
 class FotoViewSet(viewsets.ModelViewSet):
     queryset = Foto.objects.all()
     serializer_class = FotoSerializer
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
