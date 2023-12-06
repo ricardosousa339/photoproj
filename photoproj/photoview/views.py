@@ -6,6 +6,9 @@ from .models import Foto
 from django.core.files.storage import default_storage
 from django.core.files.storage import default_storage
 from django.http import Http404
+from rest_framework import viewsets
+from .serializers import FotoSerializer
+
 
 def upload_imagem(request):
     if request.method == 'POST':
@@ -16,11 +19,6 @@ def upload_imagem(request):
     else:
         form = FotoForm()
     return render(request, 'photoview/upload.html', {'form': form})
-
-def serve_image(request, file_name):
-    storage = GoogleCloudStorage()
-    image_file = storage.open('fotos/' + file_name, 'rb')
-    return HttpResponse(image_file, content_type='image/jpeg')
 
 
 def galeria(request):
@@ -43,5 +41,15 @@ def galeria(request):
             # Opcional: Marque a foto para exclusão do banco de dados, se desejar
             foto.delete()
 
-    return render(request, 'photoview/galeria.html', context)
+    response = render(request, 'photoview/galeria.html', context)
+    response['Cache-Control'] = 'public, max-age=86400'
+    del response['Expires']
 
+    return response
+
+
+#### API
+
+class FotoViewSet(viewsets.ModelViewSet):
+    queryset = Foto.objects.all()
+    serializer_class = FotoSerializer

@@ -9,9 +9,15 @@
 </head>
 <body>
     <div class="grid-galeria">
+        <ul>
         {% for foto in fotos %}
-            <img src="{{ foto.imagem_url }}" alt="{{ foto.titulo }}">
+        
+            <li>
+            <img src="{{ foto.imagem_url }}" alt="">
+            </li>
         {% endfor %}
+        <li></li>
+        </ul>
     </div>
 </body>
 </html>
