@@ -31,8 +31,9 @@ SECRET_KEY = 'django-insecure-jha7%q0&i2(x(a$o+17%+i^n4j+dm+ob-_1hl79cl-o(^foy1t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -150,4 +151,9 @@ GS_BUCKET_NAME = 'photoview-9b275.appspot.com'
 
 # Para arquivos estáticos
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
 
