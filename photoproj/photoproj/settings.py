@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'photoview',
     'storages',
-    'rest_framework'
-    'corsheaders'
+    'rest_framework',
+    'corsheaders',
+    'photoview.user',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +158,13 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
 
+AUTH_USER_MODEL = 'photoview_user.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}

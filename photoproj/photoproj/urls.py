@@ -26,5 +26,6 @@ import photoview.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(photoview.urls))
+    path('', include(photoview.urls)),
+    path('api/', include(('photoview.routers', 'photoview'), namespace='photoview-api')),
 ]
