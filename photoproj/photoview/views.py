@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from httplib2 import Response
 from .forms import FotoForm
 from django.http import HttpResponse
 from storages.backends.gcloud import GoogleCloudStorage
@@ -9,6 +10,10 @@ from django.core.files.storage import default_storage
 from django.http import Http404
 from rest_framework import viewsets
 from .serializers import FotoSerializer
+from rest_framework import viewsets
+from .models import Foto
+from rest_framework.decorators import action
+
 
 
 def upload_imagem(request):
@@ -51,6 +56,20 @@ def galeria(request):
 
 #### API
 
-class FotoViewSet(viewsets.ModelViewSet):
+class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Foto.objects.all()
     serializer_class = FotoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def user_photos(self, request, pk=None):
+        user = request.user
+        photos = Foto.objects.filter(user=user)
+        serializer = self.get_serializer(photos, many=True)
+        return Response(serializer.data)
+    
+    ##TODO: No futuro, ao invés de associar as fotos aos usuários, associar elas a um Evento, 
+    # e associar o evento ao usuário, assim fica mais separado, ao invés de todas 
+    # as fotos juntas
