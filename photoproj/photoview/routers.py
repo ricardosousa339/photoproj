@@ -1,7 +1,8 @@
 from rest_framework.routers import SimpleRouter
+from photoview.viewsets import PhotoViewSet
 from photoview.user.viewsets import UserViewSet
 from photoview.auth.viewsets import LoginViewSet, RegistrationViewSet, RefreshViewSet
-from photoview.views import PhotoViewSet
+
 
 
 routes = SimpleRouter()
