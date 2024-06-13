@@ -14,6 +14,8 @@ from rest_framework import viewsets
 from .models import Foto
 from rest_framework.decorators import action
 from django.contrib.auth.decorators import login_required
+from rest_framework import status
+from rest_framework.response import Response
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
@@ -33,6 +35,12 @@ class PhotoViewSet(viewsets.ModelViewSet):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse({'error': 'Method not allowed'}, status=405)
+        
+    @action(detail=True, methods=['delete'])
+    def delete_photo(self, request, pk=None):
+        photo = self.get_object()
+        photo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
     ##TODO: No futuro, ao invés de associar as fotos aos usuários, associar elas a um Evento, 
     # e associar o evento ao usuário, assim fica mais separado, ao invés de todas 

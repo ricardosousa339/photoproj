@@ -1,12 +1,12 @@
 from rest_framework.response import Response
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView # type: ignore
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken # type: ignore
 from photoview.auth.serializers import LoginSerializer, RegisterSerializer
-from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView # type: ignore
 from rest_framework import viewsets
 
 
